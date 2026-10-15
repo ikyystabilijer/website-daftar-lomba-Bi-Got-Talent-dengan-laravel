@@ -73,13 +73,16 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach($riwayat as $item)
                             <div class="border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition relative overflow-hidden">
-<!-- Aksen warna di kiri kartu -->
+                                <!-- Aksen warna di kiri kartu -->
                                 <div class="absolute left-0 top-0 bottom-0 w-1
-                                    @if($item->status=='DokumendalamTinjauan')bg-yellow-400@elseif($item->status == 'Jadwal Briefing') bg-blue-500
-                                    @elseif($item->status=='TahapPelatihan')bg-purple-500@elseif($item->status == 'Final') bg-green-500
+                                    @if($item->status=='Dokumen dalam Tinjauan')bg-yellow-400
+                                    @elseif($item->status == 'Jadwal Briefing') bg-blue-500
+                                    @elseif($item->status=='Tahap Pelatihan')bg-purple-500
+                                    @elseif($item->status == 'Final') bg-green-500
+                                    @elseif($item->status == 'Lolos') bg-green-500
+                                    @elseif($item->status == 'Tidak Lolos') bg-red-500
                                     @else bg-gray-400 @endif
                                 "></div>
-
 
                                 <h4 class="font-bold text-xl text-gray-800 mb-1">{{ $item->lomba->nama_lomba }}</h4>
                                 <p class="text-sm text-gray-500 mb-4">Tanggal Daftar: {{ $item->created_at->format('d M Y') }}</p>
@@ -104,12 +107,28 @@
                                             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 border border-green-200">
                                                 Lolos ke Final!
                                             </span>
+                                        @elseif($item->status == 'Lolos')
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 border border-green-200">
+                                                🎉 Selamat, Anda Lolos!
+                                            </span>
+                                        @elseif($item->status == 'Tidak Lolos')
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-red-100 text-red-800 border border-red-200">
+                                                ❌ Mohon Maaf, Belum Lolos
+                                            </span>
                                         @else
                                             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gray-100 text-gray-800">
                                                 {{ $item->status }}
                                             </span>
                                         @endif
                                     </div>
+
+                                    <!-- Kotak Catatan Juri -->
+                                    @if($item->catatan_juri)
+                                        <div class="mt-4 p-3 bg-amber-50 border-l-4 border-amber-500 text-sm text-gray-700 rounded">
+                                            <p class="font-bold text-gray-800">Catatan Juri / Evaluasi:</p>
+                                            <p class="mt-1 italic text-gray-600">"{{ $item->catatan_juri }}"</p>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

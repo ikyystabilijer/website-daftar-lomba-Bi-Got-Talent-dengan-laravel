@@ -9,7 +9,7 @@ class Pendaftaran extends Model
     use HasFactory;
 
     // Tambahkan 'kelas' dan 'no_wa' di sini
-    protected $fillable = ['user_id', 'lomba_id', 'kelas', 'no_wa', 'status'];
+    protected $fillable = ['user_id', 'lomba_id', 'kelas', 'no_wa', 'status', 'catatan_juri'];
 
     public function user() {
         return $this->belongsTo(User::class);
